@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://localhost/TST-TA/servertst/server.php" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="Gudang" targetNamespace="http://localhost/TST-TA/servertst/server.php">
+  <types>
+    <xsd:schema targetNamespace="http://localhost/TST-TA/servertst/server.php">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </xsd:schema>
+  </types>
+  <portType name="GudangPort">
+    <operation name="connectDB">
+      <documentation>Koneksi ke database</documentation>
+      <input message="tns:connectDBIn"/>
+    </operation>
+    <operation name="getKatalogBarang">
+      <documentation>Mengambil katalog barang</documentation>
+      <input message="tns:getKatalogBarangIn"/>
+      <output message="tns:getKatalogBarangOut"/>
+    </operation>
+    <operation name="hapusKatalogBarang">
+      <documentation>Menghapus katalog barang berdasarkan ID</documentation>
+      <input message="tns:hapusKatalogBarangIn"/>
+      <output message="tns:hapusKatalogBarangOut"/>
+    </operation>
+  </portType>
+  <binding name="GudangBinding" type="tns:GudangPort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="connectDB">
+      <soap:operation soapAction="http://localhost/TST-TA/servertst/server.php#connectDB"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/TST-TA/servertst/server.php"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/TST-TA/servertst/server.php"/>
+      </output>
+    </operation>
+    <operation name="getKatalogBarang">
+      <soap:operation soapAction="http://localhost/TST-TA/servertst/server.php#getKatalogBarang"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/TST-TA/servertst/server.php"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/TST-TA/servertst/server.php"/>
+      </output>
+    </operation>
+    <operation name="hapusKatalogBarang">
+      <soap:operation soapAction="http://localhost/TST-TA/servertst/server.php#hapusKatalogBarang"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/TST-TA/servertst/server.php"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/TST-TA/servertst/server.php"/>
+      </output>
+    </operation>
+  </binding>
+  <message name="connectDBIn"/>
+  <message name="getKatalogBarangIn"/>
+  <message name="getKatalogBarangOut">
+    <part name="return" type="soap-enc:Array"/>
+  </message>
+  <message name="hapusKatalogBarangIn">
+    <part name="id" type="xsd:int"/>
+    <part name="quantity" type="xsd:anyType"/>
+  </message>
+  <message name="hapusKatalogBarangOut">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <service name="GudangService">
+    <port name="GudangPort" binding="tns:GudangBinding">
+      <soap:address location="http://localhost/TST-TA/servertst/server.php"/>
+    </port>
+  </service>
+</definitions>
